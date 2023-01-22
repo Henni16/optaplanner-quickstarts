@@ -1,7 +1,9 @@
 package org.acme.schooltimetabling.domain;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +19,7 @@ public class Timeslot {
     @GeneratedValue
     private Long id;
 
-    private DayOfWeek dayOfWeek;
+    private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
 
@@ -25,20 +27,20 @@ public class Timeslot {
     public Timeslot() {
     }
 
-    public Timeslot(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
-        this.dayOfWeek = dayOfWeek;
+    public Timeslot(LocalDate date, LocalTime startTime, LocalTime endTime) {
+        this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public Timeslot(long id, DayOfWeek dayOfWeek, LocalTime startTime) {
-        this(dayOfWeek, startTime, startTime.plusMinutes(50));
+    public Timeslot(long id, LocalDate date, LocalTime startTime) {
+        this(date, startTime, startTime.plusMinutes(50));
         this.id = id;
     }
 
     @Override
     public String toString() {
-        return dayOfWeek + " " + startTime;
+        return date + " " + startTime;
     }
 
     // ************************************************************************
@@ -49,8 +51,8 @@ public class Timeslot {
         return id;
     }
 
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
+    public LocalDate getDate() {
+        return date;
     }
 
     public LocalTime getStartTime() {
@@ -61,4 +63,17 @@ public class Timeslot {
         return endTime;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Timeslot timeslot = (Timeslot) o;
+        return Objects.equals(date, timeslot.date) && Objects.equals(startTime, timeslot.startTime) && Objects.equals(endTime, timeslot.endTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(date, startTime, endTime);
+    }
 }

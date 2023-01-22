@@ -1,11 +1,6 @@
 package org.acme.schooltimetabling.rest;
 
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-
+import io.quarkus.panache.common.Sort;
 import org.acme.schooltimetabling.domain.Lesson;
 import org.acme.schooltimetabling.domain.TimeTable;
 import org.acme.schooltimetabling.persistence.LessonRepository;
@@ -16,7 +11,11 @@ import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import org.optaplanner.core.api.solver.SolverManager;
 import org.optaplanner.core.api.solver.SolverStatus;
 
-import io.quarkus.panache.common.Sort;
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 
 @Path("timeTable")
 public class TimeTableResource {
@@ -73,7 +72,7 @@ public class TimeTableResource {
         // Occurs in a single transaction, so each initialized lesson references the same timeslot/room instance
         // that is contained by the timeTable's timeslotList/roomList.
         return new TimeTable(
-                timeslotRepository.listAll(Sort.by("dayOfWeek").and("startTime").and("endTime").and("id")),
+                timeslotRepository.listAll(Sort.by("date").and("startTime").and("endTime").and("id")),
                 roomRepository.listAll(Sort.by("name").and("id")),
                 lessonRepository.listAll(Sort.by("subject").and("teacher").and("studentGroup").and("id")));
     }

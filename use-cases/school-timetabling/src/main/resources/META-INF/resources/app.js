@@ -103,7 +103,7 @@ function refreshTimeTable() {
       rowByRoom
         .append($(`<th class="align-middle"/>`)
           .append($("<span/>").text(`
-                    ${timeslot.dayOfWeek.charAt(0) + timeslot.dayOfWeek.slice(1).toLowerCase()}
+                    ${timeslot.date.charAt(0) + timeslot.date.slice(1).toLowerCase()}
                     ${LocalTime.parse(timeslot.startTime).format(dateTimeFormatter)}
                     -
                     ${LocalTime.parse(timeslot.endTime).format(dateTimeFormatter)}
@@ -119,7 +119,7 @@ function refreshTimeTable() {
       rowByTeacher
         .append($(`<th class="align-middle"/>`)
           .append($("<span/>").text(`
-                    ${timeslot.dayOfWeek.charAt(0) + timeslot.dayOfWeek.slice(1).toLowerCase()}
+                    ${timeslot.date.charAt(0) + timeslot.date.slice(1).toLowerCase()}
                     ${LocalTime.parse(timeslot.startTime).format(dateTimeFormatter)}
                     -
                     ${LocalTime.parse(timeslot.endTime).format(dateTimeFormatter)}
@@ -132,7 +132,7 @@ function refreshTimeTable() {
       rowByStudentGroup
         .append($(`<th class="align-middle"/>`)
           .append($("<span/>").text(`
-                    ${timeslot.dayOfWeek.charAt(0) + timeslot.dayOfWeek.slice(1).toLowerCase()}
+                    ${timeslot.date.charAt(0) + timeslot.date.slice(1).toLowerCase()}
                     ${LocalTime.parse(timeslot.startTime).format(dateTimeFormatter)}
                     -
                     ${LocalTime.parse(timeslot.endTime).format(dateTimeFormatter)}
@@ -231,7 +231,7 @@ function deleteLesson(lesson) {
 
 function addTimeslot() {
   $.post("/timeslots", JSON.stringify({
-    "dayOfWeek": $("#timeslot_dayOfWeek").val().trim().toUpperCase(),
+    "date": $("#timeslot_date").val().trim().toUpperCase(),
     "startTime": $("#timeslot_startTime").val().trim(),
     "endTime": $("#timeslot_endTime").val().trim()
   }), function () {

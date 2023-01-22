@@ -13,7 +13,7 @@ import io.quarkus.panache.common.Sort;
 public class TimeslotRepository implements PanacheRepository<Timeslot> {
 
     public List<Timeslot> listAllByProblemId(long problemId) {
-        return find(Timeslot.TENANT_FIELD, Sort.by("dayOfWeek").and("startTime").and("endTime").and("id"), problemId)
+        return find(Timeslot.TENANT_FIELD, Sort.by("date").and("startTime").and("endTime").and("id"), problemId)
                 .list();
     }
 }
